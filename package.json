@@ -1,0 +1,36 @@
+{
+  "name": "papercut-cli",
+  "version": "0.1.0",
+  "description": "A global, local-first CLI for recording development friction.",
+  "type": "module",
+  "bin": {
+    "papercut": "dist/bin.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "npm run typecheck && npm test && npm run pack:check",
+    "dev": "tsx src/bin.ts",
+    "pack:check": "npm pack --dry-run",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "incur": "^0.5.1",
+    "ulid": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0"
+  }
+}
