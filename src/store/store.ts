@@ -2,10 +2,11 @@ import { createHash } from 'node:crypto'
 
 export const severities = ['minor', 'major', 'blocker'] as const
 export const statuses = ['open', 'resolved'] as const
+export const sources = ['live', 'session-review'] as const
 
 export type Severity = (typeof severities)[number]
 export type Status = (typeof statuses)[number]
-export type Source = 'live' | 'session-review'
+export type Source = (typeof sources)[number]
 
 export type LogPapercutInput = {
   agent?: string
@@ -47,6 +48,20 @@ export type Papercut = {
 
 export type PapercutWithOccurrences = Papercut & { occurrences: number }
 
+export type PapercutOccurrence = {
+  agent?: string
+  branch?: string
+  command?: string
+  context?: Record<string, unknown>
+  createdAt: string
+  cwd?: string
+  id: string
+  model?: string
+  papercutId: string
+  sha?: string
+  task?: string
+}
+
 export type ListPapercutsFilter = {
   limit?: number
   repo?: string
@@ -56,6 +71,7 @@ export type ListPapercutsFilter = {
 
 export type LogPapercutResult = {
   created: boolean
+  occurrence: PapercutOccurrence
   papercut: PapercutWithOccurrences
 }
 

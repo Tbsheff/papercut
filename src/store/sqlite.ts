@@ -9,6 +9,7 @@ import {
   type ListPapercutsFilter,
   type LogPapercutInput,
   type LogPapercutResult,
+  type PapercutOccurrence,
   type PapercutStore,
   type PapercutWithOccurrences,
   type Severity,
@@ -135,7 +136,21 @@ export class SqlitePapercutStore implements PapercutStore {
       }
       this.database.exec('COMMIT')
 
-      return { created, papercut: this.get(id)! }
+      const occurrence: PapercutOccurrence = {
+        id: occurrenceId,
+        papercutId: id,
+        createdAt: now,
+        ...(input.cwd ? { cwd: input.cwd } : {}),
+        ...(input.branch ? { branch: input.branch } : {}),
+        ...(input.sha ? { sha: input.sha } : {}),
+        ...(input.agent ? { agent: input.agent } : {}),
+        ...(input.model ? { model: input.model } : {}),
+        ...(input.task ? { task: input.task } : {}),
+        ...(input.command ? { command: input.command } : {}),
+        ...(input.context ? { context: input.context } : {}),
+      }
+
+      return { created, occurrence, papercut: this.get(id)! }
     } catch (error) {
       this.database.exec('ROLLBACK')
       throw error

@@ -1,7 +1,7 @@
 {
   "name": "papercut-cli",
   "version": "0.1.0",
-  "description": "A global, local-first CLI for recording development friction.",
+  "description": "Agent-first local memory for development friction.",
   "type": "module",
   "bin": {
     "papercut": "dist/bin.js"

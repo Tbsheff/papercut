@@ -1,6 +1,6 @@
 # papercut
 
-`papercut` is a global, local-first CLI for recording development friction. It stores data in SQLite and uses a Git repository only as read-only context.
+`papercut` gives coding agents local memory for development friction. It records small problems with repository, Git, agent, model, task, and command context. It stores all data in a local SQLite database and does not change the active repository.
 
 ## Install
 
@@ -14,19 +14,48 @@ npm install --global .
 
 Set `PAPERCUT_HOME` to place the database somewhere other than `~/.papercut`.
 
-## Use
+## Set up an agent
+
+Install generated skill files so local agents can find the CLI:
 
 ```bash
-papercut log "Vitest test paths resolve relative to apps/web."
-papercut log "The migration command needs a global CLI." --severity major --task PRD-4202
-papercut list
-papercut show <id>
-papercut search "vitest"
-papercut resolve <id>
-papercut reopen <id>
+papercut skills add
 ```
 
-Use `--json` or `--format jsonl` for structured agent output. Run `papercut --llms` to inspect the machine-readable command contract.
+You can also register it as an MCP server:
+
+```bash
+papercut mcp add
+papercut mcp doctor
+```
+
+The skill route is the default choice because it uses fewer prompt tokens. MCP is useful when an agent client works best with tools.
+
+## Agent contract
+
+Every command has a declared input and output schema. Successful results include `schema_version: 1`. Write commands return the full saved record so an agent can check the result without a second call. `log` also returns the exact occurrence saved by that call.
+
+```bash
+papercut --llms-full
+papercut log --schema --format json
+papercut context --json
+```
+
+`papercut context` is read-only. It shows the repository context and exact database path that the next write will use.
+
+Use `--json` for JSON. With no format flag, non-terminal callers get compact TOON output. Use `--full-output --json` when you also need the `ok`, `error`, command, and duration envelope.
+
+## Use from a shell
+
+```bash
+papercut log "Vitest test paths resolve relative to apps/web." --json
+papercut log "The migration command needs a global CLI." --severity major --task PRD-4202 --json
+papercut list --json
+papercut show <id> --json
+papercut search "vitest" --json
+papercut resolve <id> --json
+papercut reopen <id> --json
+```
 
 Optional agent context comes from these environment variables:
 
@@ -37,7 +66,7 @@ PAPERCUT_TASK
 PAPERCUT_COMMAND
 ```
 
-The database uses WAL mode and a write timeout so several local agents can record papercuts at the same time. A normalized duplicate creates an occurrence instead of a second papercut.
+The database uses WAL mode and a write timeout so several local agents can record papercuts at the same time. A normalized duplicate adds an occurrence to the existing record instead of making a second papercut. The `action` field reports `created` or `occurrence_recorded`. The `occurrence` field contains the exact agent, task, command, and Git context saved by the call.
 
 ## Data boundary
 

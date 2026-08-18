@@ -1,19 +1,35 @@
 import { Cli, z } from 'incur'
 
-import { papercutNotFoundError, withStore } from './shared.js'
+import {
+  additiveWriteMcp,
+  papercutNotFoundError,
+  papercutOutputSchema,
+  presentPapercut,
+  schemaVersion,
+  schemaVersionOutput,
+  withStore,
+} from './shared.js'
 
 export const reopenCommand = Cli.command({
   description: 'Reopen a resolved papercut.',
   args: z.object({ id: z.string().startsWith('pc_').describe('Papercut ID.') }),
+  output: z.object({
+    schema_version: schemaVersionOutput,
+    action: z.literal('reopened').describe('Lifecycle change that was applied.'),
+    papercut: papercutOutputSchema,
+  }),
+  mcp: additiveWriteMcp,
   run(context) {
     return withStore((store) => {
       const papercut = store.reopen(context.args.id)
       if (!papercut) {
         return context.error(papercutNotFoundError(context.args.id))
       }
-      const output = { id: papercut.id, status: papercut.status, resolved_at: null }
-      if (!context.agent && !context.formatExplicit) return `Reopened ${papercut.id}`
-      return output
+      return {
+        schema_version: schemaVersion,
+        action: 'reopened' as const,
+        papercut: presentPapercut(papercut),
+      }
     })
   },
 })
