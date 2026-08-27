@@ -7,8 +7,17 @@
 Papercut requires Node.js 22.13 or newer.
 
 ```bash
+npm install --global git+https://github.com/Tbsheff/papercut-cli.git
+```
+
+Node version managers keep global packages per Node version. Reinstall after a Node version change, or add a stable link to the built CLI in a directory that stays on `PATH`.
+
+To build from source:
+
+```bash
+git clone https://github.com/Tbsheff/papercut-cli.git
+cd papercut-cli
 npm install
-npm run build
 npm install --global .
 ```
 
@@ -25,7 +34,7 @@ papercut skills add
 You can also register it as an MCP server:
 
 ```bash
-papercut mcp add
+papercut mcp add --agent codex
 papercut mcp doctor
 ```
 

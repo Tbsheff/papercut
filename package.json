@@ -16,12 +16,21 @@
     "check": "npm run typecheck && npm test && npm run pack:check",
     "dev": "tsx src/bin.ts",
     "pack:check": "npm pack --dry-run",
+    "prepare": "npm run build",
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "engines": {
     "node": ">=22.13"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tbsheff/papercut-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Tbsheff/papercut-cli/issues"
+  },
+  "homepage": "https://github.com/Tbsheff/papercut-cli#readme",
   "license": "MIT",
   "dependencies": {
     "incur": "^0.5.1",
