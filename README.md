@@ -7,10 +7,10 @@
 Papercut requires Node.js 22.13 or newer.
 
 ```bash
-npm install --global git+https://github.com/Tbsheff/papercut-cli.git
+npm install --global --prefix "$HOME/.local" --install-links git+https://github.com/Tbsheff/papercut-cli.git
 ```
 
-Node version managers keep global packages per Node version. Reinstall after a Node version change, or add a stable link to the built CLI in a directory that stays on `PATH`.
+Add `$HOME/.local/bin` to `PATH` if your shell does not include it. This stable prefix keeps Papercut installed when a Node version manager changes the active Node version. `--install-links` makes npm copy the Git package instead of linking it to a short-lived clone.
 
 To build from source:
 
