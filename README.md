@@ -7,7 +7,7 @@
 Papercut requires Node.js 22.13 or newer.
 
 ```bash
-npm install --global --prefix "$HOME/.local" --install-links git+https://github.com/Tbsheff/papercut-cli.git
+npm install --global --prefix "$HOME/.local" --install-links git+https://github.com/Tbsheff/papercut.git
 ```
 
 Add `$HOME/.local/bin` to `PATH` if your shell does not include it. This stable prefix keeps Papercut installed when a Node version manager changes the active Node version. `--install-links` makes npm copy the Git package instead of linking it to a short-lived clone.
@@ -15,8 +15,8 @@ Add `$HOME/.local/bin` to `PATH` if your shell does not include it. This stable 
 To build from source:
 
 ```bash
-git clone https://github.com/Tbsheff/papercut-cli.git
-cd papercut-cli
+git clone https://github.com/Tbsheff/papercut.git
+cd papercut
 npm install
 npm install --global .
 ```
@@ -24,6 +24,8 @@ npm install --global .
 Set `PAPERCUT_HOME` to place the database somewhere other than `~/.papercut`.
 
 ## Set up an agent
+
+The maintained agent skill is in [`skills/papercut`](skills/papercut).
 
 Install generated skill files so local agents can find the CLI:
 

@@ -25,12 +25,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Tbsheff/papercut-cli.git"
+    "url": "git+https://github.com/Tbsheff/papercut.git"
   },
   "bugs": {
-    "url": "https://github.com/Tbsheff/papercut-cli/issues"
+    "url": "https://github.com/Tbsheff/papercut/issues"
   },
-  "homepage": "https://github.com/Tbsheff/papercut-cli#readme",
+  "homepage": "https://github.com/Tbsheff/papercut#readme",
   "license": "MIT",
   "dependencies": {
     "incur": "^0.5.1",
