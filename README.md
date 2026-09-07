@@ -27,6 +27,14 @@ Set `PAPERCUT_HOME` to place the database somewhere other than `~/.papercut`.
 
 The maintained agent skill is in [`skills/papercut`](skills/papercut).
 
+Install it globally for Codex and Claude Code with the Skills CLI:
+
+```bash
+npx skills add Tbsheff/papercut --skill papercut --global --agent codex --agent claude-code
+```
+
+The repository is private. The Skills CLI uses your Git or GitHub CLI sign-in to access it. Omit `--global` to install the skill into the current project.
+
 Install generated skill files so local agents can find the CLI:
 
 ```bash
